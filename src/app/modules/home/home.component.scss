@@ -1,0 +1,26 @@
+#logo {
+    max-height: 50px;
+}
+
+p {
+    &.heading {
+        letter-spacing: 3px;
+    }
+
+    &.heading:before {
+        content: "";
+        @apply bg-primary mr-2 inline-block h-3 w-6;
+    }
+}
+
+// a.more {
+//     font-family: "NexaBold";
+//     font-size: 1.4rem;
+//     color: #cf8c45;
+//     text-decoration: none;
+// }
+  
+// a.more i {
+//     margin-left: 12px;
+// }
+  

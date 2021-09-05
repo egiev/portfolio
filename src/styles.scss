@@ -1,0 +1,16 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/* You can add global styles to this file, and also import other style files */
+
+@layer base {
+    @font-face {
+        font-family: 'NexaLight';
+        src: url('./assets/fonts/nexa-light.otf');
+    }
+    
+    @font-face {
+        font-family: 'NexaBold';
+        src: url('./assets/fonts/nexa-bold.otf');
+    }
+}
