@@ -1,4 +1,4 @@
-<header class="relative sm:absolute w-full top-0 lg:top-12">
+<header #home class="relative sm:absolute w-full top-0 lg:top-12">
     <nav class="container flex items-center justify-center bg-grey md:bg-transparent px-6 py-4">
         <div class="">
             <img src="../../../assets/images/rm.png" alt="" id="logo">
@@ -6,8 +6,8 @@
         <ul class="hidden sm:flex flex-1 justify-end gap-12">
             <li class="text-white text-md cursor-pointer" routerLink="/" routerLinkActive="text-primary font-bold">Home
             </li>
-            <li class="text-white text-md cursor-pointer">Projects</li>
-            <li class="text-white text-md cursor-pointer">Contact</li>
+            <li class="text-white text-md cursor-pointer" (click)="onGoToSection(projects)">Projects</li>
+            <li class="text-white text-md cursor-pointer" (click)="onGoToSection(contact)">Contact</li>
         </ul>
 
         <div class="flex flex-1 justify-end sm:hidden">
@@ -46,7 +46,7 @@
                     <i class="text-xl fa fa-github" aria-hidden="true"></i>
                 </a>
             </div>
-            <a href="#profile" class="text-primary font-nexa-bold text-xl no-underline">My Profile <i
+            <a (click)="onGoToSection(profile)" class="text-primary font-nexa-bold text-xl no-underline cursor-pointer">My Profile <i
                     class="ml-3 fa fa-arrow-right"></i></a>
         </div>
         <div class="flex flex-col items-center justify-center w-auto lg:w-1/2">
@@ -56,7 +56,7 @@
 </section>
 
 <!-- About -->
-<section class="bg-light-grey py-12 lg:py-20 text-white">
+<section #profile class="bg-light-grey py-12 lg:py-20 text-white">
     <div class="container flex flex-col lg:flex-row gap-8 lg:gap-24 px-6">
         <div class="flex">
             <img class="w-auto sm:max-w-xs" src="../../../assets/images/egie.png" alt="">
@@ -67,9 +67,9 @@
             <p>
                 Hi, let me give you a little background about myself.
 
-                I'm Reginald Mabanta, <span id="age"></span> years old, from the Philippines. <br><br>
+                I'm Reginald Mabanta, {{ age }} years old, from the Philippines. <br><br>
 
-                I've been working in the tech industry as a Web Developer for more than 7 years.
+                I've been working in the tech industry as a Web Developer for more than {{ years_of_working }} years.
                 Currently, I'm a Senior Frontend Developer in one of the biggest broadband provider
                 in my country and I also work as a part-time Wordpress Developer. <br><br>
 
@@ -77,7 +77,7 @@
                 like Angular(2+). I'm a type of a web developer who enjoys learning new technology and make something of
                 it. <br><br>
             </p>
-            <a href="#contact" class="text-primary font-nexa-bold text-xl no-underline mt-8">Message <i
+            <a (click)="onGoToSection(contact)" class="text-primary font-nexa-bold text-xl no-underline mt-8 cursor-pointer">Message <i
                     class="ml-3 fa fa-arrow-right"></i></a>
         </div>
     </div>
@@ -174,7 +174,7 @@
 </section>
 
 <!-- Projects -->
-<section class="flex items-center bg-light-grey py-12 lg:py-20">
+<section #projects class="flex items-center bg-light-grey py-12 lg:py-20">
     <div class="container text-white text-center px-6">
         <h1 class="font-nexa-bold text-xl sm:text-2xl lg:text-3xl mb-2">My <span class="text-primary">Projects</span></h1>
         <p class="mb-12">Sample Projects that I developed</p>
@@ -215,7 +215,7 @@
 </section>
 
 <!-- Contact Us -->
-<section class="bg-grey text-white py-12 lg:py-20">
+<section #contact class="bg-grey text-white py-12 lg:py-20">
     <div class="container px-6">
         <div class="sm:w-3/4 lg:w-2/4 mx-auto text-center">
             <h1 class="font-nexa-bold text-xl sm:text-2xl lg:text-3xl mb-2">Get in <span class="text-primary">Touch</span></h1>
