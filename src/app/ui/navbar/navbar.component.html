@@ -1,0 +1,25 @@
+<header class="header">
+  <a class="header__logo">
+    <app-monogram [highlight]="true" />
+  </a>
+
+  <nav class="header__nav">
+    <div class="header__menu header__menu--main">
+      @for (item of navLinks; track $index) {
+        <a [href]="item.path" class="header__link">{{ item.label }}</a>
+      }
+    </div>
+
+    <div class="header__menu header__menu--social">
+      @for (item of socialMedias; track $index) {
+        <a
+          [attr.aria-label]="item.label"
+          [href]="item.url"
+          class="header__link"
+        >
+          <app-icon [icon]="item.icon" />
+        </a>
+      }
+    </div>
+  </nav>
+</header>
