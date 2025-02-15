@@ -1,0 +1,18 @@
+.monogram {
+  fill: white;
+
+  .highlight {
+    fill: var(--primary-color);
+    transform: scale3d(1, 0, 1);
+    transform-origin: top;
+    transition: transform 400ms ease;
+  }
+
+  &:hover {
+    .highlight {
+      transform: scale3d(1, 1, 1);
+      transform-origin: bottom;
+      transition: transform 400ms ease;
+    }
+  }
+}
