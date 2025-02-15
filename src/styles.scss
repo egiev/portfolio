@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: Montserrat, serif;
+  font-optical-sizing: auto;
+}
+
+body {
+  --primary-color: #df800d;
+  --spacer: 1rem;
+
+  background-color: #111;
+  overflow-x: hidden;
+}

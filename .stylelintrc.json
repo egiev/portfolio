@@ -4,5 +4,13 @@
     "stylelint-config-standard-scss",
     "stylelint-prettier/recommended"
   ],
-  "plugins": ["stylelint-scss"]
+  "plugins": ["stylelint-scss"],
+  "rules": {
+    "selector-class-pattern": [
+      "^[a-z0-9]+(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$",
+      {
+        "message": "Expected class selector to follow kebab-case or BEM naming convention (block__element--modifier)."
+      }
+    ]
+  }
 }
