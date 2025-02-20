@@ -12,30 +12,24 @@ import { Particle } from './particle';
 
 export class Canvas {
   private scene!: Scene;
+  private cameraGroup!: Group;
   private camera!: PerspectiveCamera;
   private renderer!: WebGLRenderer;
   private raycaster!: Raycaster;
   private timer: Timer = new Timer();
   private delta!: number;
 
-  private cameraGroup!: Group;
   brain!: Brain;
   particles!: Particle;
 
-  private scrollY = 0;
-  private objectDistance = 4;
-  private cursor = { x: 0, y: 0 };
+  private _objectDistance = 4;
+  private _cursor = { x: 0, y: 0 };
+  private _scrollY = 0;
 
   constructor(private readonly elementRef: ElementRef<HTMLElement>) {
     this.init();
     this.initModels();
   }
-
-  // ngOnInit(): void {
-  //   this.init();
-  //   this.initModels();
-  //   this.registerListener();
-  // }
 
   private init() {
     // Scene
@@ -91,16 +85,17 @@ export class Canvas {
 
     // Camera
     this.camera.position.y =
-      (-this.scrollY / innerHeight) * this.objectDistance;
+      (-this._scrollY / innerHeight) * this.objectDistance;
 
     // Parallax
-    const parallaxX = this.cursor.x * 0.5;
-    const parallaxY = this.cursor.y * 0.5;
+    const parallaxX = this._cursor.x * 0.5;
+    const parallaxY = this._cursor.y * 0.5;
     this.cameraGroup.position.x +=
       (parallaxX - this.cameraGroup.position.x) * 5 * this.delta;
     this.cameraGroup.position.y +=
       (parallaxY - this.cameraGroup.position.y) * 5 * this.delta;
 
+    // this.brain.update(this.delta);
     this.particles.update(this.delta);
 
     this.renderer.render(this.scene, this.camera);
@@ -114,13 +109,16 @@ export class Canvas {
     this.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   }
 
-  scroll(scrollY: number, distance: number) {
-    this.scrollY = scrollY;
-    this.objectDistance = distance;
+  set scrollY(scrollY: number) {
+    this._scrollY = scrollY;
   }
 
-  mousemove(cursor: { x: number; y: number }) {
-    this.cursor = cursor;
+  get objectDistance() {
+    return this._objectDistance;
+  }
+
+  set cursor(cursor: { x: number; y: number }) {
+    this._cursor = cursor;
     // const parallaxX = cursor.x * 0.5;
     // const parallaxY = cursor.y * 0.5;
     // this.cameraGroup.position.x +=

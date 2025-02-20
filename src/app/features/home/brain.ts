@@ -57,7 +57,7 @@ export class Brain extends Group {
     return particles;
   }
 
-  getPositions(model: Group) {
+  private getPositions(model: Group) {
     const positions: number[] = [];
 
     model.traverse((node) => {

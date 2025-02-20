@@ -8,10 +8,6 @@ export class HomeAnimationService {
   private readonly zone = inject(NgZone);
 
   private canvas!: Canvas;
-  private scrollY = 0;
-  private currentSection = 0;
-  private objectDistance = 4;
-  private cursor = { x: 0, y: 0 };
 
   async init(elementRef: ElementRef<HTMLElement>) {
     this.canvas = new Canvas(elementRef);
@@ -38,29 +34,31 @@ export class HomeAnimationService {
   }
 
   private scroll() {
-    fromEvent(window, 'scroll').subscribe(() => {
-      this.scrollY = window.scrollY;
-      const newSection = Math.round(this.scrollY / innerHeight);
+    let currentSection = 0;
 
-      if (newSection !== this.currentSection) {
-        this.currentSection = newSection;
+    fromEvent(window, 'scroll').subscribe(() => {
+      const scrollY = window.scrollY;
+      const newSection = Math.round(scrollY / innerHeight);
+
+      if (newSection !== currentSection) {
+        currentSection = newSection;
         gsap.to(this.canvas.brain.position, {
           duration: 0.7,
-          y: -this.objectDistance * this.currentSection,
+          y: -this.canvas.objectDistance * currentSection,
           x: newSection % 2 === 0 ? Math.abs(1.5) : -Math.abs(1.5),
           ease: 'power3.inOut',
         });
       }
 
-      this.canvas.scroll(this.scrollY, this.objectDistance);
+      this.canvas.scrollY = scrollY;
     });
   }
 
   private mousemove() {
     fromEvent(window, 'mousemove').subscribe((e) => {
-      this.cursor.x = (e as MouseEvent).clientX / innerWidth - 0.5;
-      this.cursor.y = -((e as MouseEvent).clientY / innerHeight - 0.5);
-      this.canvas.mousemove(this.cursor);
+      const x = (e as MouseEvent).clientX / innerWidth - 0.5;
+      const y = -((e as MouseEvent).clientY / innerHeight - 0.5);
+      this.canvas.cursor = { x, y };
     });
   }
 }
