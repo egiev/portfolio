@@ -19,7 +19,8 @@
     "module": "ES2022",
     "baseUrl": "src",
     "paths": {
-      "@ui/*": ["app/ui/*"]
+      "@ui/*": ["app/ui/*"],
+      "@shaders/*": ["app/shaders/*"]
     }
   },
   "angularCompilerOptions": {

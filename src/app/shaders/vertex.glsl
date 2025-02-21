@@ -1,11 +1,10 @@
 uniform float uTime;
 
 void main() {
-  float randomX = sin(position.x + 3.0 + uTime * 0.5) * 0.5;
-  float randomY = cos(position.y + 3.0 + uTime * 0.5) * 0.5;
-  float randomZ = sin(position.z + 3.0 + uTime * 0.5) * 0.5;
-  vec3 newPosition = position + vec3(randomX, randomY, randomZ);
+  vec4 modelPosition = modelViewMatrix * vec4(position, 1.0);
+
+  vec4 projectionPosition = projectionMatrix * modelPosition;
 
   gl_PointSize = 6.;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+  gl_Position = projectionPosition;
 }

@@ -1,9 +1,16 @@
-import { BufferAttribute, BufferGeometry, Points, ShaderMaterial } from 'three';
+import {
+  BufferAttribute,
+  BufferGeometry,
+  Points,
+  ShaderMaterial,
+  TextureLoader,
+} from 'three';
 
-import fragmentShader from '../../shaders/fragment.glsl';
-import vertexShader from '../../shaders/vertex.glsl';
+import fragmentShader from '@shaders/particle/fragment.glsl';
+import vertexShader from '@shaders/particle/vertex.glsl';
 
 export class Particle extends Points {
+  private readonly texture = '/textures/8.png';
   particle!: Points;
 
   constructor(
@@ -19,16 +26,32 @@ export class Particle extends Points {
     const geometry = new BufferGeometry();
     geometry.setAttribute('position', new BufferAttribute(positions, 3));
 
+    // const material = new PointsMaterial();
+    // material.size = 0.2;
+    // material.sizeAttenuation = true;
+    // material.alphaMap = await this.loadTexture();
+    // material.color = new Color('#df800d');
+    // material.transparent = true;
+    // material.depthWrite = false;
     const material = new ShaderMaterial({
-      fragmentShader,
       vertexShader,
+      fragmentShader,
       uniforms: {
         uTime: { value: 0 },
       },
+      transparent: true,
+      depthWrite: false,
     });
 
     this.particle = new Points(geometry, material);
+    console.log(this.particle);
     this.add(this.particle);
+  }
+
+  private async loadTexture() {
+    const textureLoader = new TextureLoader();
+    const texture = await textureLoader.loadAsync(this.texture);
+    return texture;
   }
 
   private getPositions(count: number, distance: number) {
@@ -44,6 +67,7 @@ export class Particle extends Points {
   }
 
   update(delta: number) {
+    console.log(delta);
     (this.particle.material as ShaderMaterial).uniforms['uTime'].value = delta;
   }
 }

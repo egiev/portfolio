@@ -1,14 +1,16 @@
 import {
   BufferAttribute,
   BufferGeometry,
-  Color,
   Group,
   Mesh,
   Points,
-  PointsMaterial,
+  ShaderMaterial,
   TextureLoader,
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+import fragmentShader from '../../shaders/fragment.glsl';
+import vertexShader from '../../shaders/vertex.glsl';
 
 export class Brain extends Group {
   private readonly model = '/models/human_brain.glb';
@@ -22,6 +24,7 @@ export class Brain extends Group {
   async init() {
     try {
       const model = await this.loadModel();
+      console.log(model);
       const modelParticles = await this.modelToParticle(model);
       this.add(modelParticles);
     } catch {
@@ -43,13 +46,10 @@ export class Brain extends Group {
     const geometry = new BufferGeometry();
     geometry.setAttribute('position', new BufferAttribute(positions, 3));
 
-    const material = new PointsMaterial();
-    material.size = 0.2;
-    material.sizeAttenuation = true;
-    material.alphaMap = await this.loadTexture();
-    material.color = new Color('#df800d');
-    material.transparent = true;
-    material.depthWrite = false;
+    const material = new ShaderMaterial({
+      fragmentShader,
+      vertexShader,
+    });
 
     const particles = new Points(geometry, material);
     particles.scale.set(0.02, 0.02, 0.02);
