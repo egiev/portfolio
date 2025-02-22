@@ -9,8 +9,8 @@ import {
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-import fragmentShader from '../../shaders/fragment.glsl';
-import vertexShader from '../../shaders/vertex.glsl';
+import fragmentShader from '@shaders/brain/fragment.glsl';
+import vertexShader from '@shaders/brain/vertex.glsl';
 
 export class Brain extends Group {
   private readonly model = '/models/human_brain.glb';
