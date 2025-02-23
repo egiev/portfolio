@@ -1,9 +1,12 @@
 import {
+  AdditiveBlending,
   BufferAttribute,
   BufferGeometry,
+  Color,
   Points,
   ShaderMaterial,
   TextureLoader,
+  Uniform,
 } from 'three';
 
 import fragmentShader from '@shaders/particle/fragment.glsl';
@@ -37,14 +40,15 @@ export class Particle extends Points {
       vertexShader,
       fragmentShader,
       uniforms: {
-        uTime: { value: 0 },
+        uTime: new Uniform(0),
+        uColor: new Uniform(new Color('#df800d')),
       },
+      blending: AdditiveBlending,
       transparent: true,
       depthWrite: false,
     });
 
     this.particle = new Points(geometry, material);
-    console.log(this.particle);
     this.add(this.particle);
   }
 
@@ -60,14 +64,13 @@ export class Particle extends Points {
     for (let i = 0; i < count * 3; i += 3) {
       positions[i] = (Math.random() - 0.5) * 10;
       positions[i + 1] = distance * 0.7 - Math.random() * distance * 4;
-      positions[i + 2] = (Math.random() - 0.5) * 10;
+      positions[i + 2] = (Math.random() - 0.5) * 2;
     }
 
     return positions;
   }
 
   update(delta: number) {
-    console.log(delta);
     (this.particle.material as ShaderMaterial).uniforms['uTime'].value = delta;
   }
 }
