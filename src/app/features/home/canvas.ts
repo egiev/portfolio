@@ -1,5 +1,7 @@
 import { ElementRef } from '@angular/core';
 import {
+  AmbientLight,
+  DirectionalLight,
   Group,
   PerspectiveCamera,
   Raycaster,
@@ -45,6 +47,13 @@ export class Canvas {
     this.camera.aspect = innerWidth / innerHeight;
     this.cameraGroup.add(this.camera);
 
+    const ambientLight = new AmbientLight(0xffffff, 1);
+    this.scene.add(ambientLight);
+
+    const directionalLight = new DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(2, 0, 4);
+    this.scene.add(directionalLight);
+
     // Raycaster
     // this.raycaster = new Raycaster();
     // // this.raycaster.setFromCamera(
@@ -71,12 +80,11 @@ export class Canvas {
     this.brain = new Brain();
     this.brain.position.x = 1.5;
     this.brain.position.y = -this.objectDistance * 0;
-    this.brain.rotation.y = Math.PI * 0.5;
+    this.brain.rotation.y = Math.PI * 0.25;
     this.scene.add(this.brain);
 
     this.particles = new Particle(350, this.objectDistance);
-    console.log(this.particles);
-    this.scene.add(this.particles);
+    // this.scene.add(this.particles);
   }
 
   update() {
@@ -95,7 +103,7 @@ export class Canvas {
     this.cameraGroup.position.y +=
       (parallaxY - this.cameraGroup.position.y) * 5 * this.delta;
 
-    // this.brain.update(this.delta);
+    this.brain.update(this.delta);
     this.particles.update(this.delta);
 
     this.renderer.render(this.scene, this.camera);
@@ -119,28 +127,5 @@ export class Canvas {
 
   set cursor(cursor: { x: number; y: number }) {
     this._cursor = cursor;
-    // const parallaxX = cursor.x * 0.5;
-    // const parallaxY = cursor.y * 0.5;
-    // this.cameraGroup.position.x +=
-    //   (parallaxX - this.cameraGroup.position.x) * 5 * this.delta;
-    // this.cameraGroup.position.y +=
-    //   (parallaxY - this.cameraGroup.position.y) * 5 * this.delta;
-
-    // const pointer = new Mesh(
-    //   new SphereGeometry(0.01, 32, 32),
-    //   new MeshNormalMaterial(),
-    // );
-    // this.scene.add(pointer);
-
-    // this.raycaster.setFromCamera(
-    //   new Vector2(this.cursor.x, this.cursor.y),
-    //   this.camera,
-    // );
-    // const intersect = this.raycaster.intersectObject(this.brain);
-
-    // if (intersect) {
-    //   pointer.position.copy(intersect[0].point);
-    // }
-    // console.log(intersect);
   }
 }

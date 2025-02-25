@@ -6,8 +6,8 @@ varying vec2 vUv;
 
 void main() {
   vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  float moveFactor = uTime * aRandomness;
 
+  float moveFactor = uTime * aRandomness;
   modelPosition.x += cos(moveFactor) * .02;
   modelPosition.y += sin(moveFactor) * .02;
           // modelPosition.y += sin(uTime * aRandom * 5.) * 0.2 * .5;

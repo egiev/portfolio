@@ -13,7 +13,8 @@ import {
 
 export class Particle extends Points {
   private readonly texture = '/textures/14.png';
-  particle!: Points;
+
+  private particle!: Points;
 
   constructor(
     private readonly particleCount: number,
